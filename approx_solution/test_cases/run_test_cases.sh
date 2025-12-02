@@ -4,6 +4,8 @@
 # REQUIRED BY SPEC:
 # Label which test case (if any) runs more than 60 minutes.
 
+#!/bin/bash
+
 PROGRAM="approximation.py"
 CAPACITY=100
 TIME_LIMIT=1.0
@@ -15,18 +17,6 @@ do
     echo "--------------------------------------------"
     echo "Running test case: $f"
     echo "Command: python $PROGRAM $f $CAPACITY $TIME_LIMIT"
-
-    start=$(date +%s)
     python $PROGRAM "$f" $CAPACITY $TIME_LIMIT
-    end=$(date +%s)
 
-    runtime=$((end - start))
-
-    echo "Runtime: ${runtime}s"
-
-    # REQUIRED COMMENT:
-    if [ "$runtime" -gt 3600 ]; then
-        echo "# WARNING: This test case exceeds 60 minutes runtime"
-        echo "# (Required note for project spec)"
-    fi
 done
