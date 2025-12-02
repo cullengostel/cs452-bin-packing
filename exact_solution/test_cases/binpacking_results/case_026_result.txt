@@ -1,0 +1,6 @@
+case_id: case_026
+n_items: 1003
+capacity: 100
+optimal_bins: 375
+time_sec: 0.000
+timeout: False
