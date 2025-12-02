@@ -30,11 +30,13 @@ def run_anytime_experiments(test_cases, bin_capacity, time_limits, repeats=5):
 
         for r in range(repeats):
             start = time.perf_counter()
+            rng = random.Random(1000 + r)
 
             bins = anytime_randomized_binpacking(
                 items,
                 bin_capacity,
-                time_limit=time_limit
+                time_limit=time_limit,
+                rng=rng
             )
 
             end = time.perf_counter()
@@ -51,7 +53,7 @@ def run_anytime_experiments(test_cases, bin_capacity, time_limits, repeats=5):
 
 
 if __name__ == "__main__":
-    #random.seed(420)
+    random.seed(420)
     BIN_CAPACITY = 100
     item_amount = 10000
     test_case = generate_test_case(item_amount, BIN_CAPACITY)
