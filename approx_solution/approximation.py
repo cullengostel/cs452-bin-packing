@@ -4,7 +4,7 @@ import sys
 from multiprocessing import Pool, cpu_count, current_process
 
 def single_trial(items, bin_capacity, verbose=False):
-    shuffled = items[:]x
+    shuffled = items[:]
     random.shuffle(shuffled)
 
     bins = []
