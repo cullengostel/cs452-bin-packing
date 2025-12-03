@@ -44,22 +44,21 @@ and your test input file is:
 
 You can run the program as:
 
-    python approximation.py tests/sample1.txt 100 1.0 False
+    python approximation.py tests/sample1.txt 100 1.0 1 False
 
 Which means:
     - Input file = tests/sample1.txt
     - Bin capacity = 100
     - Time limit = 1.0 seconds
-    - Verbose = False (Prints ever time it gets a new solution)
-    
-Then you can Ctrl+C at anytime and it will terminate early.
+    - Parallelization = 1 Cores Used
+    - Verbose = False (Prints ever time it finds a new solution if true)
+
+Then you can Ctrl+C at anytime and it will terminate early giving
+the current minimum found.
 
 4. Contents
 -----------
 • approximation.py         — Main program
-• test_driver.py           — Driver used for quick testing
 • presentation.pdf         — Project presentation (included in submission)
-• test_cases/              — Folder containing all test cases
+• test_cases/              — Folder containing all test cases and test case generator
 • test_cases/run_test_cases.sh — Runs program on all test files
-     - While running, the script prints which test cases exceed 60 minutes
-       (none should, but the script contains the required markers).

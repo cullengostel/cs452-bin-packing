@@ -8,7 +8,7 @@
 
 PROGRAM="approximation.py"
 CAPACITY=100
-TIME_LIMIT=0.01
+TIME_LIMIT=10
 
 echo "Running all test cases..."
 

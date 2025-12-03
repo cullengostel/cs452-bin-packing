@@ -1,7 +1,7 @@
 import random
 
 filename = "test_cases/tc_anytime_example.txt"
-num_items = 20000
+num_items = 25000
 
 items = [random.randint(0, 100) for _ in range(num_items)]
 
