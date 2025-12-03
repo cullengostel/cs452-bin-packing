@@ -3,8 +3,8 @@ import os
 import random
 
 NUM_CASES = 60       # number of test cases to generate
-N_MIN = 8            # minimum number of items
-N_MAX = 20           # maximum number of items
+N_MIN = 7            # minimum number of items
+N_MAX = 18           # maximum number of items
 ITEM_MAX = 100       # maximum item size
 OUT_DIR = "."        # write .txt files in the current folder
 SEED = 42            # random seed for reproducibility

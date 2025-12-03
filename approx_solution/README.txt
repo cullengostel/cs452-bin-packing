@@ -3,7 +3,7 @@ README — Anytime Randomized Bin Packing Algorithm
 
 1. Description
 --------------
-This project implements an anytime randomized algorithm for the classic
+This project implements an anytime randomized algorithm for the 1-D
 Bin Packing problem. Given a list of item sizes and a bin capacity, the
 algorithm repeatedly generates randomized packings and keeps the best
 solution found until a time limit expires.
@@ -37,30 +37,29 @@ decreases quadratically as n increases.
 -----------------------
 Assuming your main program is named:
 
-    anytime_binpacking.py
+    approximation.py
 and your test input file is:
 
     tests/sample1.txt
 
 You can run the program as:
 
-    python3 anytime_binpacking.py tests/sample1.txt 100 1.0
+    python approximation.py tests/sample1.txt 100 1.0 False
 
 Which means:
     - Input file = tests/sample1.txt
     - Bin capacity = 100
     - Time limit = 1.0 seconds
+    - Verbose = False (Prints ever time it gets a new solution)
+    
+Then you can Ctrl+C at anytime and it will terminate early.
 
 4. Contents
 -----------
-• anytime_binpacking.py    — Main program
+• approximation.py         — Main program
 • test_driver.py           — Driver used for quick testing
 • presentation.pdf         — Project presentation (included in submission)
 • test_cases/              — Folder containing all test cases
 • test_cases/run_test_cases.sh — Runs program on all test files
      - While running, the script prints which test cases exceed 60 minutes
        (none should, but the script contains the required markers).
-
-5. Notes
---------
-All code is written in Python and requires Python 3.8 or later.
