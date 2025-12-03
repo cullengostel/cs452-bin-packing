@@ -8,6 +8,7 @@ def anytime_randomized_binpacking(items, bin_capacity, time_limit=1.0, verbose=F
     best_bins = None
     best_num_bins = float("inf")
     print(f"Lower bound on bins needed: {sum(items) // bin_capacity + (1 if sum(items) % bin_capacity != 0 else 0)}")
+    print(f"Total Items: {len(items)}")
 
     try:
         while time.perf_counter() - start < time_limit:
