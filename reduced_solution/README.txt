@@ -1,60 +1,59 @@
-# Bin Packing to MAX-3-SAT Reduction
+Bin Packing to MAX-3-SAT Reduction
+==================================
 
-## Time Complexity
-The reduction runs in **Polynomial Time** in the input bit-length.
+Algorithm Description
+---------------------
+This program reduces the Bin Packing Problem (fitting n items into m bins of capacity C) to the 3-SAT problem (satisfiability of boolean formulas).
 
-Specifically: O(m * n * L + n * m^2) where:
-- n = number of items
-- m = number of bins  
-- L = ceil(log2(C+1)) = number of bits to represent capacity
+The reduction works as follows:
+1.  Variables: For each item i (0..n-1) and bin j (0..m-1), we create a boolean variable x_{i,j} which is true if item i is placed in bin j.
+2.  Placement Constraints:
+    *   Each item must be in at least one bin: (x_{i,0} v x_{i,1} v ... v x_{i,m-1}).
+    *   Each item must be in at most one bin: For every pair of bins j1, j2, (-x_{i,j1} v -x_{i,j2}).
+3.  Capacity Constraints:
+    *   For each bin j, we construct a digital logic circuit (using AND/OR/XOR gates) to sum the sizes of items placed in that bin.
+    *   We use a tree of binary adders to compute the sum.
+    *   We compare the sum to the Capacity C using a digital comparator.
+    *   The logic gates are converted to CNF clauses using the Tseitin transformation.
 
-Since L = O(log C) is bounded by the input bit-length, this is truly polynomial.
+Running Time Analysis (Big-O)
+-----------------------------
+Let:
+*   n = Number of items
+*   m = Number of bins (typically approx Sum_Items / Capacity)
+*   L = Number of bits required to represent the Capacity C (log2(C))
 
-**Variable count**: O(n*m + m*n*L) = O(m*n*L)
-**Clause count**: O(m*n*L + n*m^2)
+The complexity is determined by the number of clauses generated:
+*   Time Complexity: O(n * m^2 + n * m * L)
 
-## Bounds Calculation
-The program automatically calculates the **Theoretical Lower Bound** (`ceil(total_size / capacity)`) and uses this as the default number of bins to check. This represents the minimum possible bins if items were "liquid". Note that due to fragmentation (items are solid), the actual minimum might be higher.
+Breakdown:
+1.  Uniqueness Constraints: There are n items. Each item has constraints for every pair of bins.
+    *   Clauses: n * m * (m-1) / 2  =>  O(n * m^2)
+2.  Capacity Constraints: There are m bins. For each bin, we build an adder circuit for n items of L bits.
+    *   Adder Circuit Size: O(n * L) gates per bin.
+    *   Clauses: O(m * n * L)
 
-## Usage
-**Syntax**:
-```bash
-python reduced_solution.py <input_file> <capacity> [num_bins]
-```
+In the worst case where m is close to n (e.g., small capacity), the complexity is O(n^3).
 
-- `input_file`: File containing space-separated item sizes (integers only).
-- `capacity`: The bin capacity (integer).
-- `num_bins` (Optional): The specific number of bins to check. If omitted, defaults to the calculated lower bound.
+Clause Bounds
+-------------
+Let K be a small constant representing clauses per logic gate (~10).
 
-**Examples**:
+*   Lower Bound: n (each item in >= 1 bin)
+*   Upper Bound: n*m^2 + K*m*n*L
 
-1. **Optimization Check** (Uses calculated lower bound):
-   ```bash
-   python reduced_solution.py items_only.txt 6
-   ```
+Usage Example
+-------------
+To run the reduction on a sample input file:
 
-2. **Decision Check** (Check if it fits in exactly 3 bins):
-   ```bash
-   python reduced_solution.py items_only.txt 6 3
-   ```
+    python reduced_solution.py <input> <capacity> <num_bins>
 
-## Input Format (Item File)
-The input file should contain only the item sizes (space or newline separated).
+Where:
+*   <input> is the path to a file containing the space separated integer sizes.
+*   <capacity> is an integer representing the capacity of the bins.
+*   <num_bins> is the number of bins to work with. If blank, it will automatically use the calculated lower bound.
 
-Example (`items_only.txt`):
-```
-5 3 6 5 4
-```
+Example:
+    python reduced_solution.py ./test_cases/case_0_10.txt 20 100
 
-## Output Format
-The program creates a file named `sat_output.txt` containing the MAX-3-SAT instance in standard DIMACS format:
-- First line: `<number of variables> <number of clauses>`
-- Subsequent lines: `<literal1> <literal2> <literal3>` (integers, negative = negation)
-
-Example output header:
-```
-235 715
-1 2 3
--1 -2 -2
-...
-```
+The program will output the generated 3-SAT instance to sat_output.txt in DIMACS format.
