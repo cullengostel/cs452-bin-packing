@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Run tests on all cases
-# The huge_test_case.txt is expected to take 60+ minutes
+# z_huge_test_case.txt is expected to take 60+ minutes
+# ^ z ensures it runs last. Other test cases are small
+# and complete in milliseconds.
 
 mkdir -p outputs
 
